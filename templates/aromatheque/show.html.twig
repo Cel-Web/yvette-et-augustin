@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'aromatheque de {{ user.prenom }}{% endblock %}
+
+{% block body %}
+<div class="container p-5">
+    <div class="card border-primary pb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="card-title">L'aromatheque de {{ user.prenom }}</h4>
+                </div>
+                <div class="col-md-6">
+                    <a href="{{ path('aromatheque_add') }}" class="float-right"><i class="far fa-plus-square fa-lg"></i> Compléter mon aromatheque</a>
+                </div>
+            </div>
+            <p class="card-text">Il y a <b>{{user.aromatheques | length}}</b> produits dans votre aromatheque.<br></p>
+        </div>
+    </div>
+    {% if user.aromatheques | length > 0 %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Nom Latin</th>
+            <th scope="col">Type</th>
+            <th scope="col">Quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produits in user.aromatheques %}
+            <tr>
+                <td>{{ produits.produit.nom }}</td>
+                <td>{{ produits.produit.latin }}</td>
+                <td>{{ produits.produit.type }}</td>
+                <td>{{ produits.quantite }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    {% endif %}
+</div>
+{% endblock %}

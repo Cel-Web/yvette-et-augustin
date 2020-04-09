@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un produit dans votre aromathèque {% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+<div class="container p-5">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Ajouter un produit</button>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}

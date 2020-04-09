@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/concept.css">{% endblock %}
+
+{% block title %}Notre concept{% endblock %}
+
+{% block body %}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal">2 jeunes <br> 2 passions <br> 1 application</h1>
+    <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
+    <a class="btn btn-outline-secondary" href="{{ path('presentation')}}">Yvette & Augustin</a>
+  </div>
+</div>
+
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <div class="my-3 py-3">
+      <h2 class="display-5">L'aromathérapie & L'informatique</h2>
+      <h3 class="lead text-white">Les passions qui nous animent</h3>
+      <hr>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia tincidunt dolor quis sollicitudin. Suspendisse eget accumsan augue. Nunc nec ornare mi. Maecenas quam ex, iaculis id vulputate et, laoreet sed nulla. Ut massa purus, egestas id sem ac, pharetra facilisis arcu. Donec at ultricies mi. Nulla elit mauris, maximus imperdiet turpis eu, tempus interdum quam. Nullam eget orci ex. Sed sit amet augue eget diam varius consequat in a purus.
+        <br>
+        Etiam nisi mi, volutpat vel ex eu, condimentum ultricies tortor. Donec scelerisque elit eget molestie tincidunt. Proin nec bibendum felis. Cras bibendum nisi at quam tincidunt laoreet. Vivamus congue et metus eget cursus. Nunc ac ante quis neque mollis hendrerit. Fusce pretium, nibh eget egestas suscipit, odio quam vestibulum mauris, ut rutrum erat lorem vel mauris. Ut lobortis orci quis posuere ullamcorper. Ut blandit semper quam, et fringilla purus. Proin vel mauris vel justo facilisis euismod nec non nulla. Curabitur id ullamcorper nisl, sed aliquet dolor. Maecenas est mi, luctus et porttitor a, laoreet non ante. Ut a ante pellentesque, vulputate leo eu, ultricies enim.</p>
+    </div>
+  </div>
+  <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+      <h2 class="display-5">Trouver un titre</h2>
+      <p class="lead">Mettre une photo d'un bout de code avec des HE sur le clavier</p>
+    </div>
+  </div>
+</div>
+
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+            <h2 class="display-5">Aromathèque Online & Partage de Recettes </h2>
+            <h3 class="lead">Démonstration de l'application</h3>
+        </div>
+        mettre une vidéo de démo !
+    </div>
+    <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="my-3 py-3">
+            <h2 class="display-5 text-white">Notre application</h2>
+            <h3 class="lead text-white">Le concept</h3>
+            <hr>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia tincidunt dolor quis sollicitudin. Suspendisse eget accumsan augue. Nunc nec ornare mi. Maecenas quam ex, iaculis id vulputate et, laoreet sed nulla. Ut massa purus, egestas id sem ac, pharetra facilisis arcu. Donec at ultricies mi. Nulla elit mauris, maximus imperdiet turpis eu, tempus interdum quam. Nullam eget orci ex. Sed sit amet augue eget diam varius consequat in a purus.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

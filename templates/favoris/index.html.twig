@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes recettes préférées{% endblock %}
+
+{% block body %}
+<div class="container p-5">
+    <h1 class="text-center">Mes recettes préférées <i class="far fa-grin-hearts"></i></h1>
+    {% if favoris | length > 0 %}
+     {% for favori in favoris %}
+    <div class="pb-3">
+        <div class="card border-primary">
+            <div class="card-header">
+                <div class="float-left">
+                    {{ favori.recette.categorie.libelle }}
+                </div>
+                <div class="float-right">
+                    <a href="{{ path('recette_show', {'libelle': favori.recette.categorie.libelle, 'slug': favori.recette.slug }) }}"><i class="far fa-eye"></i> Voir la recette intégralement</a> 
+                    |
+                    <a href="{{ path('favoris_delete', {'id': favori.id }) }}"><i class="fas fa-heart text-danger" data-toggle="tooltip" data-placement="right" title="Retirer des favoris"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="card-title">{{ favori.recette.titre }}</h4>
+                        <p class="card-text">{{ favori.recette.description }}</p>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <p>Cette recette à reçu la note de : </p>
+                        {% if favori.recette.commentaires | length > 0 %}
+                        <p>Note : {% include 'commun/note.html.twig' with {'rating' : favori.recette.avgRatings} %} </p>
+                        {% else %}
+                            <p>Aucune note.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-center">Vous n'avez pas encore de recette préférée <i class="far fa-frown"></i> </p> <br>
+    <p class="text-center lead">Rendez-vous sur <a href="{{ path('recette_all') }}">toutes les recettes</a> pour sélectionner quelques unes !</p>
+    {% endif %}
+</div>
+{% endblock %}

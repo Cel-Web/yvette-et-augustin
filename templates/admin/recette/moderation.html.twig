@@ -1,0 +1,66 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modération des recettes{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modération des recettes</h1>
+    </div> 
+    <div class="row">
+        <div class="col">
+            <form method="post" name="moderationRecette" action="{{path('admin_recette_moderation')}}">
+            <table class="table">
+                <thead> 
+                    <tr>
+                        <th>#</th>
+                        <th>Titre de la recette</th>
+                        <th>Description (début)</th>
+                        <th>Catégorie</th>
+                        <th>Nombre de produit</th>
+                        <th>Auteur</th>
+                        <th>Modération</th>
+                        <th>Voir la recette</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for OneRecette in AllRecettesFalse %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{OneRecette.titre}}</td>
+                            <td>{{OneRecette.description|slice(0, 55)|raw}}...</td>
+                            <td>{{OneRecette.categorie.libelle}}</td>
+                            <td>
+                            {% if OneRecette.produitRecettes|length > 0 %}
+                            <span class="badge badge-primary">{{OneRecette.produitRecettes|length}}</span>
+                            {% else %}
+                            <span class="badge badge-danger">{{OneRecette.produitRecettes|length}}</span>
+                            {% endif %}
+                            </td>
+                            <td>{{OneRecette.publiePar.prenom}}</td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moderation{{OneRecette.id}}" id="moderationNon{{OneRecette.id}}" value="0" checked>
+                                    <label class="form-check-label" for="moderationNon{{OneRecette.id}}">
+                                        Non
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moderation{{OneRecette.id}}" id="moderationOui{{OneRecette.id}}" value="1">
+                                    <label class="form-check-label" for="moderationOui{{OneRecette.id}}">
+                                        Oui
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_recette_edit', {'slug': OneRecette.slug }) }}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" value="Modifier">
+            </form>
+        </div>
+    </div>
+{% endblock %}

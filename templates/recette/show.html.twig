@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette : {{ recette.titre }} {% endblock %}
+
+{% block body %}
+
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-9">
+            <h1 class="text-left pb-4">La recette "{{ recette.titre }}" <br> <small>par {{ recette.publiePar.prenom }}</small> - 
+            {% if recette.favoris | length == 0 %}
+                <a href="{{ path('favoris_add', {'idRecette': recette.id, 'idUser': app.user.id }) }}"><i class="far fa-heart" data-toggle="tooltip" data-placement="right" title="Ajouter aux favoris"></i></a>
+            {% else %}
+                {% for favori in recette.favoris %}
+                    {% if favori is not null %}
+                    <a href="{{ path('favoris_delete', {'id': favori.id }) }}"><i class="fas fa-heart text-danger" data-toggle="tooltip" data-placement="right" title="Retirer des favoris"></i></a>
+                    {% endif %}
+                {% endfor %}
+            {%  endif %}
+            </h1>
+        </div>
+        <div class="col-md-3 text-right">
+            {% if app.user and app.user == recette.publiePar %}
+                <a href="{{ path('recette_edit', {'slug': recette.slug }) }}" class="btn btn-primary">Modifier l'annonce</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>{{ recette.description }}</p>
+        </div>
+        <div class="col-md-6">
+            <h2> Pour cette recette vous avez besoin de : </h2>
+            <ul>
+            {% for produitInRecette in recette.produitRecettes %}
+                <li>{{ produitInRecette.produit.nom }} - {{ produitInRecette.quantite }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <hr>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type"submit" class="btn btn-primary">Laisser un commentaire</button>
+    {{ form_end(form) }}
+    <hr>
+    {% if recette.commentaires | length > 0 %}
+        {% for commentaire in recette.commentaires %}
+        <div class="pt-3 pb-3">
+            <div class="card border-success">
+                <div class="card-header">Commentaire laissé par :  {{commentaire.user.prenom}}</div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                    {% include 'commun/note.html.twig' with {'rating' : commentaire.note} %}
+                    </h4>
+                    <p class="card-text"> {{commentaire.commentaire}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="pt-3 pb-3">
+            <div class="card border-success">
+                <div class="card-header">Cette recette n'a pas encore d'avis !</div>
+                <div class="card-body">
+                    <h4 class="card-title">Aucun commentaire</h4>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="jumbotron pt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{{ path('recette_all')}}" class="btn btn-primary">Retour aux recettes</a>
+            </div>
+             <div class="col-md-9 text-right">
+                Les différentes catégories de recettes : 
+                {% for categorie in categories %}
+                    <a href="{{ path('recette_category', {'libelle': categorie.libelle }) }}" class="badge badge-primary lead">{{ categorie.libelle }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

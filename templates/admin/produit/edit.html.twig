@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Admin - voir un produit{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="h3 mb-0 text-gray-800">Modifier le produit <b>{{produit.nom}}</b></h1>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="{{ path('admin_produit_modification') }}" class="btn btn-primary">Retour à la liste des produit</a>
+        </div>
+    </div>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Modifier ce produit</button>
+    {{ form_end(form) }}
+{% endblock %}
+

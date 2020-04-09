@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Aromathèque en ligne avec Yvette & Augustin !{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+  <h1 class="display-3">Bienvenue sur votre Aromathèque en ligne !</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Se connecter</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button">S'sincrire</a>
+  </p>
+</div>
+<section class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Une aromathèque online ?!</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Notre idée</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="{{ path('concept') }}" class="card-link">Le concept</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Qui sommes-nous ?</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Yvette & Augustin</h6>
+          <p class="card-text">Deux jeunes passionés d'informatique et d'aromathérapie (entre autre !) proposant cette application etc...</p>
+          <a href="{{ path('presentation') }}" class="card-link">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Contactez Yvette & Augustin</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Une question ?</h6>
+          <p class="card-text">Vous avez besoin d'aide ou vous souhaitez tout simplement nous faire part de votre expérience, contactez-nous !</p>
+          <a href="#" class="card-link">Contactez-nous</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

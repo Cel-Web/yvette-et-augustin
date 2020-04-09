@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des recettes{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Gestion des recettes</h1>
+    </div> 
+    <div class="row">
+        <div class="col">
+            <form method="post" name="gestionRecette" action="{{path('admin_recette_modification')}}">
+                <table class="table">
+                    <thead> 
+                        <tr>
+                            <th>#</th>
+                            <th>Titre de la recette</th>
+                            <th>Description (début)</th>
+                            <th>Catégorie</th>
+                            <th>Nombre de produit</th>
+                            <th>Auteur</th>
+                            <th>Suppression</th>
+                            <th>Voir la recette</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for OneRecette in AllRecettes %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{OneRecette.titre}}</td>
+                                <td>{{OneRecette.description|slice(0, 55)|raw}}...</td>
+                                <td>{{OneRecette.categorie.libelle}}</td>
+                                <td>
+                                {% if OneRecette.produitRecettes|length > 0 %}
+                                <span class="badge badge-primary">{{OneRecette.produitRecettes|length}}</span>
+                                {% else %}
+                                <span class="badge badge-danger">{{OneRecette.produitRecettes|length}}</span>
+                                {% endif %}
+                                </td>
+                                <td>{{OneRecette.publiePar.prenom}}</td>
+                                <td>
+                                     <a href="{{ path('admin_recette_delete', {'slug': OneRecette.slug }) }}" class="btn btn-danger" onclick="return confirm('etes-vous sur de vouloir supprimer cet élément {{ OneRecette.titre }} ?')"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('admin_recette_edit', {'slug': OneRecette.slug }) }}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

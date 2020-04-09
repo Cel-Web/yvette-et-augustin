@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un produit{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+<div class="container p-5">
+    <div class="card border-primary pb-4">
+        <div class="card-body">
+            <h4 class="card-title">Il manque un produit à la liste ?</h4>
+            <p class="card-text">Une huile essentielle, une huile végétale ou encore un hydrolat manque à l'appel ? Ajoutez-le ici !<br></p>
+        </div>
+    </div>
+    <div class="pt-4">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Ajouter à mon aromathèque</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

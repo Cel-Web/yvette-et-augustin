@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une recette {% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-9">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Modifier cette recette !</button>
+            {{ form_end(form) }}
+        </div>
+         <div class="col-md-3 text-right">
+            <h2>Raccourcis</h2>
+            <a href="{{ path('recette_show', {'libelle': recette.categorie.libelle, 'slug': recette.slug }) }}"><i class="far fa-eye"></i></a> <a href="{{ path('recette_show', {'libelle': recette.categorie.libelle, 'slug': recette.slug }) }}">Voir la recette</a> <br>
+            <a href="{{ path('recette_edit', {'slug': recette.slug }) }}"><i class="far fa-edit"></i></a> <a href="{{ path('recette_edit', {'slug': recette.slug }) }}">Modifier la recette</a> <br>
+            <a href="{{ path('recette_user') }}"><i class="far fa-list-alt"></i></a> <a href="{{ path('recette_user') }}">Liste des mes recettes</a> <br>
+            <a href="{{ path('recette_all') }}"><i class="fas fa-clipboard-list"></i></a> <a href="{{ path('recette_all') }}">Liste de toutes les recettes</a> <br>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block _recette_ProduitRecettes_widget %}
+
+    <p> Ajouter les produits nécessaires à la recette </p>
+        {{ form_widget(form) }}
+
+    <input type="hidden" id="widgets-counter" value="0">
+
+    <button type="button" id="recetteProduitRecettes" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un produit à la recette</button>
+
+{% endblock %}
+
+{% block _recette_ProduitRecettes_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _recette_ProduitRecettes_entry_widget %}
+<div class="form-group" id="block_{{id}}">
+ <div class="row">
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_widget(form.produit)}}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.quantite)}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+    </div>
+ </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+$('#recetteProduitRecettes').click(function(){
+    // je récupère le numéro des futurs champs que je vais créer.
+    const index = +$('#widgets-counter').val();
+
+    // je récupère le prototype des entrées.
+    const tmpl = $('#recette_ProduitRecettes').data('prototype').replace(/__name__/g, index);
+
+    //j'injecte ce code au sein de la div
+    $('#recette_ProduitRecettes').append(tmpl);
+
+    $('#widgets-counter').val(index + 1);
+
+    // je gère le bouton suprrimer
+    handleDeleteButtons();
+
+ });
+
+ function handleDeleteButtons(){
+     $('button[data-action="delete"]').click(function(){
+         // this représente le bouton sur lequel on a cliqué
+         // dataset => tous les attributs -qqch
+         // target pcq ici on veut récupérer le data-target
+         const target = this.dataset.target;
+         $(target).remove();
+     });
+ }
+
+ function updateCounter(){
+     const count = +$('#recette_ProduitRecettes div.form-group').length;
+
+     $('#widgets-counter').val(count);
+ }
+
+ updateCounter();
+
+ // je l'appelle aussi à chaque rechargement de la page
+ handleDeleteButtons();
+</script>
+
+{% endblock %}

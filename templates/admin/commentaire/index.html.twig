@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des commentaires{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Gestion des commentaires</h1>
+    </div> 
+    <div class="row">
+        <div class="col">
+            <form method="post" name="moderationRecette" action="{{path('admin_commentaire_index')}}">
+            <table class="table">
+                <thead> 
+                    <tr>
+                        <th>#</th>
+                        <th>Commentaire (début)</th>
+                        <th>Auteur</th>
+                        <th>Date</th>
+                        <th>Note</th>
+                        <th>Supprimer</th>
+                        <th>Voir le commentaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for OneCommentaire in AllCommentaires %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{OneCommentaire.commentaire|slice(0, 55)|raw}}...</td>
+                            <td>{{OneCommentaire.user.prenom}}</td>
+                            <td>{{OneCommentaire.dateCreation|date('d/m/Y')}}</td>
+                            <td>
+                                {% if OneCommentaire.note > 3 %}
+                                <span class="badge badge-success">{{OneCommentaire.note}}</span>
+                                {% elseif OneCommentaire.note < 3 %}
+                                <span class="badge badge-danger">{{OneCommentaire.note}}</span>
+                                {% elseif OneCommentaire.note == 3 %}
+                                <span class="badge badge-warning">{{OneCommentaire.note}}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_commentaire_delete', {'id': OneCommentaire.id }) }}" onclick="return confirm('etes-vous sur de vouloir supprimer cet élément {{ OneCommentaire.commentaire }} ?')" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_commentaire_edit', {'id': OneCommentaire.id }) }}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" value="Modifier">
+            </form>
+        </div>
+    </div>
+{% endblock %}

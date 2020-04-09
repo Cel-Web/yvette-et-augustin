@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes !{% endblock %}
+
+{% block body %}
+
+<div class="container p-5">
+    <h1 class="text-center">Les recettes que vous avez publié</h1>
+    {% for recette in recettes %}
+    <div class="pb-3">
+        <div class="card border-primary">
+            <div class="card-header">
+                <div class="float-left">
+                    {{ recette.categorie.libelle }}
+                </div>
+                <div class="float-right">
+                    <a href="{{ path('recette_show', {'libelle': recette.categorie.libelle, 'slug': recette.slug }) }}"><i class="far fa-eye"></i> Voir la recette</a> |
+                    <a href="{{ path('recette_edit', {'slug': recette.slug }) }}"><i class="far fa-edit"></i> Modifier la recette</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="card-title">{{ recette.titre }}</h4>
+                        <p class="card-text">{{ recette.description }}</p>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <p>Cette recette à reçu la note de : </p>
+                        {% if recette.commentaires | length > 0 %}
+                        <p>Note : {% include 'commun/note.html.twig' with {'rating' : recette.avgRatings} %} </p>
+                        {% else %}
+                            <p>Aucune note.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

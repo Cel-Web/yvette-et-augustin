@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des produits{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Gestion des produits</h1>
+    </div> 
+    <div class="row">
+        <div class="col">
+            <form method="post" name="moderationProduit" action="{{path('admin_produit_modification')}}">
+            <table class="table">
+                <thead> 
+                    <tr>
+                        <th>#</th>
+                        <th>Nom du produit</th>
+                        <th>Nom latin</th>
+                        <th>Type</th>
+                        <th>Suppression</th>
+                        <th>Modifier / Voir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for OneProduit in AllProduits %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{OneProduit.nom}}</td>
+                            <td>{{OneProduit.latin}}</td>
+                            <td>{{OneProduit.type.libelle}}</td>
+                            <td><a href="{{ path('admin_produit_delete', {'id': OneProduit.id }) }}" class="btn btn-danger" onclick="return confirm('etes-vous sur de vouloir supprimer l'annince {{ OneProduit.nom }} ?')"><i class="far fa-trash-alt"></i></a>
+                            {# </td>
+                            <td></td> #}
+                            <td><a href="{{ path('admin_produit_edit', {'id': OneProduit.id }) }}" class="btn btn-primary"><i class="far fa-eye"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" value="Modifier">
+            </form>
+        </div>
+    </div>
+{% endblock %}

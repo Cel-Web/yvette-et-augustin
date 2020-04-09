@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modération des produits{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Modération des produits</h1>
+    </div> 
+    <div class="row">
+        <div class="col">
+            <form method="post" name="moderationProduit" action="{{path('admin_produit_moderation')}}">
+            <table class="table">
+                <thead> 
+                    <tr>
+                        <th>#</th>
+                        <th>Nom du produit</th>
+                        <th>Nom latin</th>
+                        <th>Type</th>
+                        <th>Modération</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for OneProduit in AllProduitsFalse %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td><input type="text" name="nom{{OneProduit.id}}" class="form-control" value="{{OneProduit.nom}}" ></td>
+                            <td><input type="text" name="latin{{OneProduit.id}}" class="form-control" value="{{OneProduit.latin}}" ></td>
+                            <td> 
+                                <select class="custom-select" name="type{{OneProduit.id}}">
+                                {% for OneType in AllTypes %} 
+                                    <option value="{{OneType.id}}" {% if OneType.id == OneProduit.type.id %} selected {% endif %}>{{OneType.libelle}}</option>
+                                {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moderation{{OneProduit.id}}" id="moderationNon{{OneProduit.id}}" value="0" checked>
+                                    <label class="form-check-label" for="moderationNon{{OneProduit.id}}">
+                                        Non
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moderation{{OneProduit.id}}" id="moderationOui{{OneProduit.id}}" value="1">
+                                    <label class="form-check-label" for="moderationOui{{OneProduit.id}}">
+                                        Oui
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-primary" value="Modifier">
+            </form>
+        </div>
+    </div>
+{% endblock %}
